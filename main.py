@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
 
+from service_factory import knitAllServices
 from service import ChatbotMessageSendService, ChatCoreService
 
 
@@ -11,10 +12,7 @@ async def lifespan(app: FastAPI):
     # Startup code goes here
     print("Application is starting up...")
     # You can perform initialization tasks, e.g., connect to a database
-    chatCoreService = ChatCoreService()
-    chatCoreService.prepareInitData()
-    app.state.chatCoreService = chatCoreService
-    app.state.chatbotMessageSendService = ChatbotMessageSendService(chatCoreService)
+    knitAllServices(app)
     yield  # The application will run here
     # Shutdown code goes here (after the application shuts down)
     print("Application is shutting down...")

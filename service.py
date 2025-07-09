@@ -1,12 +1,8 @@
-from Storage import (
+from storage import (
     MessageStore,
-    MemMessageStore,
     BotStore,
-    MemBotStore,
     UserStore,
-    MemUserStore,
     ChatStore,
-    MemChatStore,
 )
 from external import ChatRequest, ChatBotClient
 from model import Message, Bot, Chat, User
@@ -24,11 +20,17 @@ class ChatEntity:
 
 
 class ChatCoreService:
-    def __init__(self):
-        self.msgStore: MessageStore = MemMessageStore()
-        self.chatStore: ChatStore = MemChatStore()
-        self.botStore: BotStore = MemBotStore()
-        self.userStore: UserStore = MemUserStore()
+    def __init__(
+        self,
+        msgStore: MessageStore,
+        chatStore: ChatStore,
+        botStore: BotStore,
+        userStore: UserStore,
+    ):
+        self.msgStore = msgStore
+        self.chatStore = chatStore
+        self.botStore = botStore
+        self.userStore = userStore
 
     def get(self, chatId: int) -> ChatEntity:
         # fetch necessary info from db

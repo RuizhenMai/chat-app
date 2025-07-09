@@ -1,5 +1,6 @@
 import unittest
-from Storage import *
+from storage import *
+from mongo_storage_impl import *
 
 
 class TestMemMessageStore(unittest.TestCase):
@@ -27,6 +28,14 @@ class TestMemChatStore(unittest.TestCase):
         chat = store.get(0)
         self.assertEqual(chat.id, 0)
 
+
+class TestMongoChatStore(unittest.TestCase):
+    def test(self):
+        connection = MongoConnection()
+        mongoChatStore = MongoChatStoreImpl(connection)
+        mongoChatStore.save(Chat(id=0, userId1=0, userId2=1))
+        chat = mongoChatStore.get(0)
+        self.assertEqual(chat.id, 0)
 
 if __name__ == "__main__":
     unittest.main()
