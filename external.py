@@ -25,7 +25,6 @@ class ChatBotClient:
             "user_name": req.user_name,
             "chat_history": [dict(x) for x in req.chat_history],
         }
-        print("body is", body)
         headers = {"Authorization": API_TOKEN}
 
         resp = requests.post(API_ENDPOINT, headers=headers, json=body)
