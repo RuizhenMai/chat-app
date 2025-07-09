@@ -1,6 +1,7 @@
 import unittest
 from storage import *
 
+
 class TestMemMessageStore(unittest.TestCase):
     def test(self):
         store = MemMessageStore()
@@ -10,11 +11,14 @@ class TestMemMessageStore(unittest.TestCase):
         msgs = store.get(1)
         self.assertEqual(msgs[0].message, "hi there")
 
-        store.append(Message(chatId=1, sender="kevin", message="how is the weather today?"))
+        store.append(
+            Message(chatId=1, sender="kevin", message="how is the weather today?")
+        )
 
         msgs = store.get(1)
         self.assertEqual(len(msgs), 2)
         self.assertEqual(msgs[1].message, "how is the weather today?")
+
 
 class TestMemChatStore(unittest.TestCase):
     def test(self):
@@ -24,5 +28,5 @@ class TestMemChatStore(unittest.TestCase):
         self.assertEqual(chat.id, 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

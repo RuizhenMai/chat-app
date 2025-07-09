@@ -14,10 +14,11 @@ async def lifespan(app: FastAPI):
     chatCoreService = ChatCoreService()
     chatCoreService.prepareInitData()
     app.state.chatCoreService = chatCoreService
-    app.state.ChatbotMessageSendService = ChatbotMessageSendService(chatCoreService)
+    app.state.chatbotMessageSendService = ChatbotMessageSendService(chatCoreService)
     yield  # The application will run here
     # Shutdown code goes here (after the application shuts down)
     print("Application is shutting down...")
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -31,8 +32,20 @@ def chatDefault(content: Content):
     return chat(chatId=0, content=content)
 
 
+@app.get("/chat")
+def getChatHistoryDefault():
+    return getChatHistory(chatId=0)
+
+
 @app.post("/chat/{chatId}")
 def chat(chatId: int, content: Content):
-    msgSendService = app.state.ChatbotMessageSendService
+    msgSendService: ChatbotMessageSendService = app.state.chatbotMessageSendService
     rsp = msgSendService.sendMsg(chatId, content.message)
-    return {"rsp": rsp}
+    return {"data": rsp}
+
+
+@app.get("/chat/{chatId}")
+def getChatHistory(chatId: int):
+    chatCoreService: ChatCoreService = app.state.chatCoreService
+    rsp = chatCoreService.get(chatId)
+    return {"data": rsp.chatHistory}
