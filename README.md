@@ -1,7 +1,9 @@
 ## Installation
-
-pip3 install "fastapi[standard]"
+```bash
+pip install "fastapi[standard]"
+```
 
 ## Run
-
+```bash
 fastapi dev main.py
+```
