@@ -1,5 +1,5 @@
 import unittest
-from storage import *
+from Storage import *
 
 
 class TestMemMessageStore(unittest.TestCase):

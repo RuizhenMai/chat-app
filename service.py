@@ -1,4 +1,4 @@
-from storage import (
+from Storage import (
     MessageStore,
     MemMessageStore,
     BotStore,
