@@ -67,6 +67,15 @@ class ChatbotMessageSendService:
         self.chatClient = ChatBotClient()
 
     def sendMsg(self, chatId: int, msgContent: str) -> str:
+        """send a message to chatbot and get response
+
+        Args:
+            chatId (int): chat id
+            msgContent (str): message content
+
+        Returns:
+            str: bot return
+        """
         # fetch all necessary info from db
         chatEntity = self.chatService.get(chatId)
 

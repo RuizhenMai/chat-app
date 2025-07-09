@@ -19,5 +19,5 @@ class Message(BaseModel):
 
 class Chat(BaseModel):
     id: int
-    userId1: int
-    userId2: int
+    userId1: int  # typically user
+    userId2: int  # typically bot, we potentially should add TalkerType, one is bot the other is user

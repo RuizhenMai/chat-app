@@ -17,7 +17,6 @@ class ChatBotClient:
         pass
 
     def send(self, req: ChatRequest) -> str:
-
         body = {
             "memory": "",
             "prompt": PROMPT_SAFETY_PREFIX,
